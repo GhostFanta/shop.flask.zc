@@ -1,0 +1,28 @@
+from enum import Enum
+
+
+class OrderStatus(Enum):
+    pending = 'pending'
+    unshipped = 'unshipped'
+    shipped = 'shipped'
+    completed = 'completed'
+    canceled = 'canceled'
+
+
+class AccountStatus(Enum):
+    active = 'active'
+    inactive = 'inactive'
+    blocked = 'blocked'
+
+
+class ShipmentStatus(Enum):
+    pending = 'pending'
+    shipped = 'shipped'
+    delivered = 'delivered'
+    on_hold = 'on_hold'
+    received = 'received'
+
+
+class Roles(Enum):
+    admin = 'admin'
+    client = 'client'

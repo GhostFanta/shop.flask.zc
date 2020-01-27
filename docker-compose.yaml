@@ -1,0 +1,42 @@
+version: "2"
+services:
+  api:
+    build: ./api/
+    image: shop_flask_zc
+    container_name: shop_api
+    links:
+      - mysql
+    ports:
+      - 3001:3000
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql
+    container_name: shop_mysql
+    ports:
+      - 32000:3306
+    environment:
+      MYSQL_DATABASE: shop
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123456
+  mysql_test:
+    image: mysql
+    container_name: shop_mysql_test
+    ports:
+      - 32001:3306
+    environment:
+      MYSQL_DATABASE: shop_test
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123456
+  nginx:
+    image: nginx
+    container_name: todo_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/proxy.conf:/etc/nginx/proxy.conf:ro
+      - ./nginx/mime.types:/etc/nginx/mime.types:ro
+    ports:
+      - 80:80
+      - 444:443
+    depends_on:
+      - api
