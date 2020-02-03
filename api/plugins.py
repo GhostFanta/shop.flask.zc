@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
+from flask_cli import FlaskCLI
 from sqlalchemy.ext.declarative import declarative_base
 
 from datetime import datetime
@@ -34,6 +35,7 @@ db = SQLAlchemy(model_class=CRUDMixin)
 migrate = Migrate()
 cors = CORS()
 marshmallow = Marshmallow()
+cli = FlaskCLI()
 
 Column = db.Column
 relationship = relationship
@@ -46,6 +48,7 @@ class SoftDeleteMixin(CRUDMixin):
 
 
 class BaseModel(object):
+    __tablename__ = 'basemodel'
     id = db.Column('id', db.Integer, autoincrement=True, nullable=False, unique=True, primary_key=True)
     created_at = db.Column('created_at', db.DateTime, nullable=False, default=datetime.utcnow())
     updated_at = db.Column('updated_at', db.DateTime, nullable=False, default=datetime.utcnow())

@@ -4,8 +4,8 @@ from api.enums import ShipmentStatus
 
 class Shipment(db.Model, BaseModel, CRUDMixin):
     __tablename__ = 'shipment'
-    # shipment_number = db.Column('shipment_number', db.ForeignKey('shipmenttrack.id'))
-    shipment_number = db.Column('shipment_number', db.Integer)
+    shipment_number = db.Column('shipment_number', db.ForeignKey('shipmenttrack.id'))
+    # shipment_number = db.Column('shipment_number', db.Integer)
     shipment_status = db.Column('shipment_status', db.Enum(ShipmentStatus))
 
     def __init__(self, **kwargs):
@@ -19,7 +19,7 @@ class ShipmentTrack(db.Model, BaseModel, CRUDMixin):
     esitmated_arrival = db.Column('estimated_arrival', db.DateTime)
     track_number = db.Column('track_number', db.String(200))
 
-    # shipment = db.relationship("Shipment", backref="shipmenttrack")
+    shipment = db.relationship("Shipment", backref="shipmenttrack")
 
     def __init__(self, **kwargs):
         self.__shipment_date = kwargs.get('shipment_date')

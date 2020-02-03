@@ -4,7 +4,7 @@ from webargs.flaskparser import use_args
 
 from http import HTTPStatus
 
-shipment = Blueprint('shipment', __name__)
+shipment_blueprint = Blueprint('shipment', __name__)
 parser = flaskparser.FlaskParser()
 
 parser.DEFAULT_VALIDATION_STATUS = 400

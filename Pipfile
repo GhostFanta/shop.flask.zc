@@ -21,6 +21,10 @@ webargs = "*"
 pytest-factoryboy = "*"
 flask-migrate = "*"
 flask-script = "*"
+flask-seeder = "*"
+flask-cli = "*"
+simplejson = "*"
+flasgger = "*"
 
 [requires]
 python_version = "3.6"

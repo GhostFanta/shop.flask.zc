@@ -12,11 +12,10 @@ class Cart(db.Model, CRUDMixin):
     """
     __tablename__ = 'cart'
     id = db.Column('id', db.Integer, autoincrement=True, nullable=False, unique=True, primary_key=True)
-    # user_id = db.Column('user_id', db.ForeignKey('user.id'))
-    user_id = db.Column('user_id', db.Integer)
+    user_id = db.Column('user_id', db.ForeignKey('user.id'))
 
-    # items = db.relationship('Item', backref="cart")
-    # user = db.relationship("User", back_populates="user")
+    items = db.relationship('Item', backref=db.backref("cart_items"))
+    user = db.relationship("User", backref=db.backref("user_cart"))
 
     def __init__(self, **kwargs):
         self.user_id = kwargs.get('user_id')
@@ -28,14 +27,12 @@ class Item(db.Model, BaseModel, CRUDMixin):
     products that the customer want to purchase.
     """
     __tablename__ = 'item'
-    # product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    product_id = db.Column('product_id', db.Integer)
-    # cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
-    cart_id = db.Column('cart_id', db.Integer)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
     amount = db.Column('amount', db.Integer, default=0)
 
-    # cart = db.relationship("Cart", backref="item")
-    # product = db.relationship("Product", backref="item")
+    cart = db.relationship("Cart", backref="item_cart")
+    product = db.relationship("Product", backref="item_product")
 
     def __init__(self, product_id, amount):
         self._product_id = product_id
@@ -45,13 +42,14 @@ class Item(db.Model, BaseModel, CRUDMixin):
     def price(self):
         pass
 
-# class Order(BaseModel, CRUDMixin):
-#     """
-#     It represents the proceed cart.
-#     """
-#
-#     __tablename__ = 'order'
-#     status = db.Column('status', db.Enum(OrderStatus), default=OrderStatus.unshipped)
-#
-#     def __init__(self, **kwargs):
-#         self.status = kwargs.get('status')
+
+class Order(db.Model, BaseModel, CRUDMixin):
+    """
+    It represents the proceed cart.
+    """
+
+    __tablename__ = 'order'
+    status = db.Column('status', db.Enum(OrderStatus), default=OrderStatus.unshipped)
+
+    def __init__(self, **kwargs):
+        self.status = kwargs.get('status')
