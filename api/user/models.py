@@ -25,7 +25,7 @@ class User(db.Model, BaseModel, CRUDMixin):
         self.__last_login = kwargs.get('last_login')
 
     def __str__(self):
-        return "ID=%d, Name=%s, Email=%d" % (self.id, self.name, self.email)
+        return "Name=%s, Email=%d" % (self.name, self.email)
 
 
 class Address(db.Model, BaseModel, CRUDMixin):

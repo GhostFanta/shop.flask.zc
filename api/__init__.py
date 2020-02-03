@@ -29,10 +29,15 @@ def register_blueprints(app):
     app.register_blueprint(shipment_blueprint)
 
 
+def register_commands(app):
+    app.cli.add_command(seed)
+
+
 def create_app(config_object=ProdConfig):
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = config_object.SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config_object.SQLALCHEMY_TRACK_MODIFICATIONS
     register_plugins(app)
     register_blueprints(app)
+    register_commands(app)
     return app

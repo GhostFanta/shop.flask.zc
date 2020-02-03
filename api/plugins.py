@@ -1,29 +1,68 @@
 from flask_sqlalchemy import SQLAlchemy, Model
+from flask import abort
 from sqlalchemy.orm import relationship
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_cli import FlaskCLI
-from sqlalchemy.ext.declarative import declarative_base
 
 from datetime import datetime
 
 
 class CRUDMixin(Model):
     @classmethod
+    def query(cls):
+        return db.session.query(cls)
+
+    @classmethod
+    def get(cls, _id):
+        if any((isinstance(_id, str) and _id.isdigit(),
+                isinstance(_id, (int, float))), ):
+            return cls.query.get(int(_id))
+        return None
+
+    @classmethod
+    def get_by(cls, **kwargs):
+        return cls.query.filter_by(**kwargs).first()
+
+    @classmethod
+    def get_or_404(cls, _id):
+        rv = cls.get(_id)
+        if rv is None:
+            abort(404)
+        return rv
+
+    @classmethod
+    def get_or_create(cls, **kwargs):
+        r = cls.get_by(**kwargs)
+        if not r:
+            r = cls(**kwargs)
+            db.session.add(r)
+        return r
+
+    @classmethod
     def create(cls, **kwargs):
-        row = cls(**kwargs)
-        return row.save()
+        instance = cls(**kwargs)
+        print('\n')
+        print(instance.__dict__)
+        print('\n')
+        return instance.save()
 
     def update(self, commit=True, **kwargs):
-        for key, val in kwargs.items():
-            setattr(self, key, val)
+        for attr, value in kwargs.iteritems():
+            setattr(self, attr, value)
         return commit and self.save() or self
 
     def save(self, commit=True):
         db.session.add(self)
+        print(db.session.__dict__)
+        print(self.__dict__)
         if commit:
-            db.session.commit()
+            try:
+                db.session.commit()
+            except Exception:
+                db.session.rollback()
+                raise
         return self
 
     def delete(self, commit=True):

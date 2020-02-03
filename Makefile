@@ -9,6 +9,6 @@ migrate:
 upgrade:
 	export FLASK_DEBUG=True FLASK_APP=app.py && pipenv run flask db upgrade
 seed:
-	export FLASK_DEBUG=True FLASK_APP=app.py && pipenv run flask seed run
+	export FLASK_DEBUG=True FLASK_APP=app.py && pipenv run flask seed
 
 .PHONY: run test init migrate upgrade seed

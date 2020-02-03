@@ -5,7 +5,7 @@
 ## Project Summary:
 [Click me to see the summary](SUMMARY.md)
 
-## Tool Chain:
+# Tool Chain:
 + Base Framework: Flask
 + ORM: SqlAlchemy
 + Serializer: Marshmallow
@@ -41,7 +41,10 @@ Run tests
 make test
 ```
 
-## Features:
+Run the project under docker mode
+```
+docker-compose up --build
+```
 
 ## References:
 
