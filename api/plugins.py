@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_cli import FlaskCLI
+from flasgger import Swagger
 
 from datetime import datetime
 
@@ -43,9 +44,6 @@ class CRUDMixin(Model):
     @classmethod
     def create(cls, **kwargs):
         instance = cls(**kwargs)
-        print('\n')
-        print(instance.__dict__)
-        print('\n')
         return instance.save()
 
     def update(self, commit=True, **kwargs):
@@ -55,8 +53,6 @@ class CRUDMixin(Model):
 
     def save(self, commit=True):
         db.session.add(self)
-        print(db.session.__dict__)
-        print(self.__dict__)
         if commit:
             try:
                 db.session.commit()
@@ -75,6 +71,7 @@ migrate = Migrate()
 cors = CORS()
 marshmallow = Marshmallow()
 cli = FlaskCLI()
+swagger = Swagger()
 
 Column = db.Column
 relationship = relationship

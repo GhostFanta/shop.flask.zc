@@ -1,7 +1,7 @@
-from api.plugins import CRUDMixin, BaseModel, db, relationship
+from api.plugins import BaseModel, db, relationship
 
 
-class Category(db.Model, BaseModel, CRUDMixin):
+class Category(db.Model, BaseModel):
     __tablename__ = 'category'
     category_name = db.Column('category_name', db.String(20))
 
@@ -14,7 +14,7 @@ class Category(db.Model, BaseModel, CRUDMixin):
         return '<Category %r>' % self.__category_name
 
 
-class Product(db.Model, BaseModel, CRUDMixin):
+class Product(db.Model, BaseModel):
     __tablename__ = 'product'
     product_name = db.Column('product_name', db.String(200))
     description = db.Column('description', db.String(200))
@@ -35,7 +35,7 @@ class Product(db.Model, BaseModel, CRUDMixin):
         self.__category = kwargs.get('category')
 
 
-class ProductReview(db.Model, BaseModel, CRUDMixin):
+class ProductReview(db.Model, BaseModel):
     __tablename__ = 'productreview'
     rating = db.Column('rating', db.Integer)
     review = db.Column('review', db.Text)
@@ -48,7 +48,7 @@ class ProductReview(db.Model, BaseModel, CRUDMixin):
         self.__review = kwargs.get('review')
 
 
-class Tag(db.Model, BaseModel, CRUDMixin):
+class Tag(db.Model, BaseModel):
     __tablename__ = 'tag'
     tag_name = db.Column('tag_name', db.String(20))
 

@@ -12,7 +12,6 @@
 + Server: gunicorn
 + Load-Balancer: nginx
 + DB: Mysql
-+ Seed: Flask-Seeder
 + UnitTest: pytest
 
 ## Project Setup:
@@ -39,6 +38,11 @@ make upgrade
 Run tests
 ```
 make test
+```
+
+List all routes
+```
+make routes
 ```
 
 Run the project under docker mode

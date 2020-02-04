@@ -1,8 +1,8 @@
-from api.plugins import CRUDMixin, BaseModel, db
+from api.plugins import BaseModel, db
 from api.enums import ShipmentStatus
 
 
-class Shipment(db.Model, BaseModel, CRUDMixin):
+class Shipment(db.Model, BaseModel):
     __tablename__ = 'shipment'
     shipment_number = db.Column('shipment_number', db.ForeignKey('shipmenttrack.id'))
     # shipment_number = db.Column('shipment_number', db.Integer)
@@ -13,7 +13,7 @@ class Shipment(db.Model, BaseModel, CRUDMixin):
         self.__shipment_status = kwargs.get('shipment_status')
 
 
-class ShipmentTrack(db.Model, BaseModel, CRUDMixin):
+class ShipmentTrack(db.Model, BaseModel):
     __tablename__ = 'shipmenttrack'
     shipment_date = db.Column('shipment_date', db.Enum(ShipmentStatus))
     esitmated_arrival = db.Column('estimated_arrival', db.DateTime)

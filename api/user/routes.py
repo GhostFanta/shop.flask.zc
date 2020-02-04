@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from webargs import fields, ValidationError, flaskparser
+from flasgger import swag_from
 from webargs.flaskparser import use_args
 from api.user.models import User
 from api.exceptions import UserExceptions
@@ -16,8 +17,24 @@ use_args = parser.use_args
 
 
 @user_blueprint.route('/users/<user_id>', methods=['GET'])
+@swag_from('./docs/get_user_by_id.yml')
 def get_user_by_id(user_id):
-    user = User.query.filter_by(id=user_id).first()
+    """
+    tags:
+        - User
+    parameters:
+        - name: user_id
+        in: path
+        type: integer
+        required: true,
+        description: user id
+    responses:
+        200:
+            description: Return a list of users
+            schema:
+            $ref: '#/definitions/
+    """
+    user = User.get_or_404(user_id)
     if not user:
         raise UserExceptions.user_not_exist()
     return user_schema.dump(user), HTTPStatus.OK
@@ -38,16 +55,18 @@ def update_user(user_id):
     if not user:
         raise UserExceptions.user_not_exist()
     user.update(data)
-    return jsonify(users_schema.dump(user))
+    return jsonify(users_schema.dump(user)), HTTPStatus.OK
 
 
 @user_blueprint.route('/users', methods=['POST'])
 def create_user():
-    pass
+    data = request.body
+    user = User.create(**data)
+    return user, HTTPStatus.OK
 
 
 @user_blueprint.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = User.query.filter_by(id=user_id)
     user.delete()
-    return user
+    return user, HTTPStatus.NO_CONTENT

@@ -1,11 +1,11 @@
-from api.plugins import CRUDMixin, BaseModel, db
+from api.plugins import BaseModel, db
 from api.enums import OrderStatus
 
 from api.user.models import User
 from api.products.models import Product
 
 
-class Cart(db.Model, CRUDMixin):
+class Cart(db.Model):
     """
     Contains a list of items, which indicates the items that the customer want to
     proceed.
@@ -21,7 +21,7 @@ class Cart(db.Model, CRUDMixin):
         self.user_id = kwargs.get('user_id')
 
 
-class Item(db.Model, BaseModel, CRUDMixin):
+class Item(db.Model, BaseModel):
     """
     One row in cart, which contains the info of a product and the number of
     products that the customer want to purchase.
@@ -43,7 +43,7 @@ class Item(db.Model, BaseModel, CRUDMixin):
         pass
 
 
-class Order(db.Model, BaseModel, CRUDMixin):
+class Order(db.Model, BaseModel):
     """
     It represents the proceed cart.
     """
