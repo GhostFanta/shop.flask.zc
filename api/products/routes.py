@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
 from api.products.models import ProductReview, Product
@@ -30,6 +30,13 @@ def get_product_by_id(product_id):
     return product_schema.dump(product), HTTPStatus.OK
 
 
+@products_blueprint.route('/products', methods=['POST'])
+def create_product():
+    data = request.json
+    product = Product.create(**data)
+    return product_schema.dump(product), HTTPStatus.OK
+
+
 @products_blueprint.route('/products/<product_id>', methods=['DELETE'])
 def delete_product(product_id):
     product = Product.query.filter_by(id=product_id).first()
@@ -39,9 +46,17 @@ def delete_product(product_id):
     return products_schema.dump(product), HTTPStatus.NO_CONTENT
 
 
-@products_blueprint.route('/product_reviews/<product_id>', methods=['GET'])
+@products_blueprint.route('/products/<product_id>/product_reviews', methods=['GET'])
 def get_product_view_by_product_id(product_id):
     reviews = ProductReview.query.filter(product_id=product_id)
+    if not reviews:
+        raise ProductException.no_product_review()
+    return reviews
+
+
+@products_blueprint.route('/products/<product_id>/product_reviews/<review_id>', methods=['GET'])
+def get_product_view_by_product_id_and_review_id(product_id, review_id):
+    reviews = ProductReview.query.filter(product_id=product_id, id=review_id)
     if not reviews:
         raise ProductException.no_product_review()
     return reviews

@@ -1,5 +1,6 @@
 from flask import Flask
-from api.plugins import cors, migrate, marshmallow, swagger
+from flask_swagger_ui import get_swaggerui_blueprint
+from api.plugins import cors, migrate, marshmallow
 from api.settings import ProdConfig, DevConfig
 from api.cart.routes import carts_blueprint
 from api.shipment.routes import shipment_blueprint
@@ -16,11 +17,20 @@ def register_plugins(app):
     from api.plugins import db
     from api.plugins import cli
     cli.init_app(app)
-    swagger.init_app(app)
     db.init_app(app)
     cors.init_app(app)
     migrate.init_app(app, db)
     marshmallow.init_app(app)
+
+
+def init_swagger(app):
+    SWAGGER_URL = '/docs'
+    API_URL = '/static/swagger.json'
+    SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(SWAGGER_URL,
+                                                  API_URL, config={
+            'app_name': 'Shop the API'
+        })
+    app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 
 def register_blueprints(app):
@@ -28,6 +38,7 @@ def register_blueprints(app):
     app.register_blueprint(user_blueprint)
     app.register_blueprint(products_blueprint)
     app.register_blueprint(shipment_blueprint)
+    init_swagger(app)
 
 
 def register_commands(app):

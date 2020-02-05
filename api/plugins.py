@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_cli import FlaskCLI
-from flasgger import Swagger
 
 from datetime import datetime
 
@@ -73,7 +72,6 @@ migrate = Migrate()
 cors = CORS()
 marshmallow = Marshmallow()
 cli = FlaskCLI()
-swagger = Swagger()
 
 Column = db.Column
 relationship = relationship

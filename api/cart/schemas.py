@@ -14,3 +14,8 @@ class CartSchema(Schema):
 
 class OrderSchema(Schema):
     pass
+
+
+cart_schema = CartSchema()
+item_schema = ItemSchema()
+order_schema = OrderSchema()

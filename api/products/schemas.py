@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, post_dump
+from marshmallow import Schema, fields
 
 
 class TagSchema(Schema):
@@ -10,8 +10,9 @@ class CategorySchema(Schema):
 
 
 class ProductReviewSchema(Schema):
-    rating = fields.Number()
-    review = fields.String()
+    id = fields.Integer()
+    rating = fields.Integer()
+    review = fields.Str()
 
 
 class ProductSchema(Schema):
@@ -28,3 +29,5 @@ tag_schema = TagSchema()
 category_schema = CategorySchema()
 product_schema = ProductSchema()
 products_schema = ProductSchema(many=True)
+product_review_schema = ProductReviewSchema()
+product_reviews_schema = ProductReviewSchema(many=True)

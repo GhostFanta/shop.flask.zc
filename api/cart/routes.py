@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
 from api.cart.models import Cart
+from api.cart.schemas import cart_schema
 
 from http import HTTPStatus
 from api.exceptions import ProductException
@@ -18,9 +19,9 @@ def pong():
     return jsonify({'pong': True}), HTTPStatus.OK
 
 
-@carts_blueprint.route('/carts/:id', methods=['GET'])
-def get_cart():
-    cart = Cart.query.filter_by()
+@carts_blueprint.route('/carts/<user_id>', methods=['GET'])
+def get_cart(user_id):
+    cart = Cart.query.filter_by(user_id=user_id)
     if not cart:
         raise ProductException.product_not_exist()
-    return cart, HTTPStatus.OK
+    return cart_schema.dump(cart), HTTPStatus.OK

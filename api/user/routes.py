@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from webargs import fields, ValidationError, flaskparser
-from flasgger import swag_from
 from webargs.flaskparser import use_args
 from api.user.models import User, Address
 from api.exceptions import UserExceptions
@@ -18,9 +17,9 @@ use_args = parser.use_args
 
 
 @user_blueprint.route('/users/<user_id>', methods=['GET'])
-@swag_from('./docs/get_user_by_id.yml')
 def get_user_by_id(user_id):
     """
+    ---
     tags:
         - User
     parameters:
