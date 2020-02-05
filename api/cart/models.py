@@ -1,4 +1,4 @@
-from api.plugins import BaseModel, db
+from api.plugins import BaseModel, db, relationship
 from api.enums import OrderStatus
 
 from api.user.models import User
@@ -18,7 +18,9 @@ class Cart(db.Model):
     user = db.relationship("User", backref=db.backref("user_cart"))
 
     def __init__(self, **kwargs):
-        self.user_id = kwargs.get('user_id')
+        db.Model.__init__(self,
+                          user_id=kwargs.get('user_id')
+                          )
 
 
 class Item(db.Model, BaseModel):
@@ -28,19 +30,24 @@ class Item(db.Model, BaseModel):
     """
     __tablename__ = 'item'
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
     amount = db.Column('amount', db.Integer, default=0)
 
-    cart = db.relationship("Cart", backref="item_cart")
-    product = db.relationship("Product", backref="item_product")
+    cart = relationship("Cart", backref="item_cart")
+    product = relationship("Product", backref="item_product")
+    order = relationship("Order", backref="item_order")
 
-    def __init__(self, product_id, amount):
-        self._product_id = product_id
-        self._amount = amount
+    def __init__(self, **kwargs):
+        db.Model.__init__(self,
+                          product_id=kwargs.get('product_id'),
+                          amount=kwargs.get('amount'),
+                          cart_id=kwargs.get('cart_id')
+                          )
 
     @property
     def price(self):
-        pass
+        return self.product.price * self.amount
 
 
 class Order(db.Model, BaseModel):
@@ -52,4 +59,6 @@ class Order(db.Model, BaseModel):
     status = db.Column('status', db.Enum(OrderStatus), default=OrderStatus.unshipped)
 
     def __init__(self, **kwargs):
-        self.status = kwargs.get('status')
+        db.Model.__init__(self,
+                          status=kwargs.get('status')
+                          )

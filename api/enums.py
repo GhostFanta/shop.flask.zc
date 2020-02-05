@@ -25,4 +25,4 @@ class ShipmentStatus(Enum):
 
 class Roles(Enum):
     admin = 'admin'
-    client = 'client'
+    member = 'member'

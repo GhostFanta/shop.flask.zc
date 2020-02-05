@@ -11,4 +11,12 @@ We'd like to design an API layer with the following requirements:
     + 
 + Member: Has vistor's previleges, in addition, they are able to save and purchase products.
     
-#### Functions:
+#### Features:
+##### User:
+
+##### Product:
+
+##### Shipment:
+
+##### Cart:
++ **Member** should view all his/her purchase histories.

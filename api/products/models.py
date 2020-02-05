@@ -8,7 +8,7 @@ class Category(db.Model, BaseModel):
     product = db.relationship("Product", backref="category_product")
 
     def __init__(self, **kwargs):
-        self.__category_name = kwargs.get('category_name')
+        db.Model.__init__(self, category_name=kwargs.get('category_name'))
 
     def __repr__(self):
         return '<Category %r>' % self.__category_name
@@ -28,11 +28,13 @@ class Product(db.Model, BaseModel):
     reviews = relationship('ProductReview', backref=db.backref("product_review"))
 
     def __init__(self, **kwargs):
-        self.__product_name = kwargs.get('product_name')
-        self.__description = kwargs.get('description')
-        self.__price = kwargs.get('price')
-        self.__capacity = kwargs.get('capacity')
-        self.__category = kwargs.get('category')
+        db.Model.__init__(self,
+                          product_name=kwargs.get('product_name'),
+                          description=kwargs.get('description'),
+                          price=kwargs.get('price'),
+                          capacity=kwargs.get('capacity'),
+                          category=kwargs.get('category'),
+                          )
 
 
 class ProductReview(db.Model, BaseModel):
@@ -44,8 +46,12 @@ class ProductReview(db.Model, BaseModel):
     product = relationship('Product', backref=db.backref('productreview'))
 
     def __init__(self, **kwargs):
-        self.__rating = kwargs.get('rating')
-        self.__review = kwargs.get('review')
+        db.Model.__init__(
+            self,
+            rating=kwargs.get('rating'),
+            review=kwargs.get('review'),
+            product_id=kwargs.get('product_id')
+        )
 
 
 class Tag(db.Model, BaseModel):
@@ -53,4 +59,6 @@ class Tag(db.Model, BaseModel):
     tag_name = db.Column('tag_name', db.String(20))
 
     def __init__(self, **kwargs):
-        self.__name = kwargs.get('tag_name')
+        db.Model.__init__(self,
+                          name=kwargs.get('tag_name')
+                          )

@@ -10,22 +10,23 @@ class User(db.Model, BaseModel):
     password = db.Column('password', db.String(200))
     email = db.Column('email', db.String(200))
     avatar = db.Column('avatar', db.String(256))
-    last_login = db.Column('last_login', db.DateTime, default=datetime.utcnow())
+    last_login = db.Column('last_login', db.DateTime, default=datetime.utcnow)
     status = db.Column('status', db.Enum(AccountStatus))
 
     cart = db.relationship("Cart", backref=db.backref("cart_user"))
     address = db.relationship("Address", backref=db.backref("user_address"))
 
     def __init__(self, **kwargs):
-        self.__name = kwargs.get('name')
-        self.__password = kwargs.get('password')
-        self.__email = kwargs.get('email')
-        self.__address = kwargs.get('address')
-        self.__status = kwargs.get('status')
-        self.__last_login = kwargs.get('last_login')
+        db.Model.__init__(self,
+                          name=kwargs.get('name'),
+                          password=kwargs.get('password'),
+                          email=kwargs.get('email'),
+                          status=kwargs.get('status') or AccountStatus.inactive,
+                          last_login=kwargs.get('last_login') or datetime.utcnow(),
+                          )
 
     def __str__(self):
-        return "Name=%s, Email=%d" % (self.name, self.email)
+        return
 
 
 class Address(db.Model, BaseModel):
@@ -39,11 +40,13 @@ class Address(db.Model, BaseModel):
     user = relationship('User', backref=db.backref('user_address'))
 
     def __init__(self, **kwargs):
-        self.__street = kwargs.get('street')
-        self.__city = kwargs.get('city')
-        self.__state = kwargs.get('state')
-        self.__zip_code = kwargs.get('zip_code')
-        self.__country = kwargs.get('country')
+        db.Model.__init__(self,
+                          street=kwargs.get('street'),
+                          city=kwargs.get('city'),
+                          state=kwargs.get('state'),
+                          zip_code=kwargs.get('zip_code'),
+                          user_id=kwargs.get('user_id') or None
+                          )
 
     def __str__(self):
         return "ID=%d, City=%s, State=%d" % (self.id, self.city, self.state)

@@ -47,7 +47,9 @@ class CRUDMixin(Model):
         return instance.save()
 
     def update(self, commit=True, **kwargs):
-        for attr, value in kwargs.iteritems():
+        print('kwargs')
+        print(kwargs.items())
+        for attr, value in kwargs.items():
             setattr(self, attr, value)
         return commit and self.save() or self
 
@@ -79,11 +81,17 @@ Model = db.Model
 
 
 class SoftDeleteMixin(CRUDMixin):
+    deleted_at = db.Column('deleted_at', db.DateTime, nullable=True)
+
     def delete(self, commit=True):
-        deleted_at = db.Column('deleted_at', db.DateTime, nullable=True)
+        self.deleted_at = datetime.utcnow()
+        return commit and db.session.commit()
 
 
 class BaseModel(object):
+    """
+    Primary key and time stamp
+    """
     __tablename__ = 'basemodel'
     id = db.Column('id', db.Integer, autoincrement=True, nullable=False, unique=True, primary_key=True)
     created_at = db.Column('created_at', db.DateTime, nullable=False, default=datetime.utcnow())
