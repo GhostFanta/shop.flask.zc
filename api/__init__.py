@@ -6,7 +6,7 @@ from api.cart.routes import carts_blueprint
 from api.shipment.routes import shipment_blueprint
 from api.products.routes import products_blueprint
 from api.user.routes import user_blueprint
-from api.commands import seed
+from api.commands import seed, routes
 
 
 def register_plugins(app):
@@ -43,6 +43,7 @@ def register_blueprints(app):
 
 def register_commands(app):
     app.cli.add_command(seed)
+    app.cli.add_command(routes)
 
 
 def create_app(config_object=ProdConfig):

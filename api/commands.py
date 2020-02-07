@@ -1,4 +1,5 @@
 from flask_cli import with_appcontext
+from flask import current_app
 from datetime import datetime
 
 from api.user.models import User, Address
@@ -8,6 +9,7 @@ from api.products.models import Product, ProductReview, Category
 from api.enums import AccountStatus
 
 import click
+import operator
 
 
 @click.command()
@@ -30,3 +32,18 @@ def seed():
                    capacity=22, category_id=2)
     ProductReview.create(rating=3, review="Good product1!", product_id=1)
     ProductReview.create(rating=3, review="Good product2!", product_id=2)
+
+
+@click.command()
+@with_appcontext
+def routes():
+    """Display registered routes"""
+    rules = []
+    for rule in current_app.url_map.iter_rules():
+        methods = ','.join(sorted(rule.methods))
+        rules.append((rule.endpoint, methods, str(rule)))
+
+    sort_by_rule = operator.itemgetter(2)
+    for endpoint, methods, rule in sorted(rules, key=sort_by_rule):
+        route = '{:50s} {:25s} {}'.format(endpoint, methods, rule)
+        print(route)

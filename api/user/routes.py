@@ -18,22 +18,6 @@ use_args = parser.use_args
 
 @user_blueprint.route('/users/<user_id>', methods=['GET'])
 def get_user_by_id(user_id):
-    """
-    ---
-    tags:
-        - User
-    parameters:
-        - name: user_id
-        in: path
-        type: integer
-        required: true,
-        description: user id
-    responses:
-        200:
-            description: Return a list of users
-            schema:
-            $ref: '#/definitions/
-    """
     user = User.get_or_404(user_id)
     if not user:
         raise UserExceptions.user_not_exist()
@@ -62,6 +46,9 @@ def update_user(user_id):
 def create_user():
     data = request.json
     user = User.create(**data)
+    if data['address']:
+        address = Address.create(**data['address'][0], user_id=user.id)
+        user.address = [address]
     return jsonify(user_schema.dump(user)), HTTPStatus.OK
 
 

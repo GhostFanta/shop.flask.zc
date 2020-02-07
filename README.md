@@ -1,6 +1,6 @@
 # The Shop API
 
-> Web API designed for online shopping.
+> Web API designed for online shopping. You may use the project as a boilerplate for your needs as well.
 
 ## Project Summary:
 [Click me to see the summary](SUMMARY.md)
