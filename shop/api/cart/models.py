@@ -1,8 +1,8 @@
-from api.plugins import BaseModel, db, relationship
-from api.enums import OrderStatus
+from shop.api.plugins import BaseModel, db, relationship
+from shop.api.enums import OrderStatus
 
-from api.user.models import User
-from api.products.models import Product
+from shop.api.user.models import User
+from shop.api.products.models import Product
 
 
 class Cart(db.Model):

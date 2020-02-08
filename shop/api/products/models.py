@@ -1,4 +1,4 @@
-from api.plugins import BaseModel, db, relationship
+from shop.api.plugins import BaseModel, db, relationship
 
 
 class Category(db.Model, BaseModel):

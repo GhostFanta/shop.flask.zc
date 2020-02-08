@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from api.plugins import BaseModel, db, relationship
-from api.enums import AccountStatus
+from shop.api.plugins import BaseModel, db, relationship
+from shop.api.enums import AccountStatus
 
 
 class User(db.Model, BaseModel):

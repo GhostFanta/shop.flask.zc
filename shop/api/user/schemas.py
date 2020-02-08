@@ -1,4 +1,4 @@
-from api.utils import BaseSchema, pre_load, fields
+from shop.api.utils import BaseSchema, pre_load, fields
 
 
 class AddressSchema(BaseSchema):

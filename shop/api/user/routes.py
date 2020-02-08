@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, request
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
-from api.user.models import User, Address
-from api.exceptions import UserExceptions
+from shop.api.user.models import User, Address
+from shop.api.exceptions import UserExceptions
 from datetime import datetime
 
-from api.user.schemas import users_schema, user_schema
+from shop.api.user.schemas import users_schema, user_schema
 
 from http import HTTPStatus
 

@@ -1,13 +1,13 @@
 version: "2"
 services:
   api:
-    build: ./api/
+    build: shop/
     image: shop_flask_zc
     container_name: shop_api
     links:
       - mysql
     ports:
-      - 3001:3000
+      - 3001:5000
     depends_on:
       - mysql
   mysql:
@@ -19,6 +19,8 @@ services:
       MYSQL_DATABASE: shop
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - ./data:/var/lib/mysql
   mysql_test:
     image: mysql
     container_name: shop_mysql_test

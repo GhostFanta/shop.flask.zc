@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
-from api.cart.models import Cart
-from api.cart.schemas import cart_schema
+from shop.api.cart.models import Cart
+from shop.api.cart.schemas import cart_schema
 
 from http import HTTPStatus
-from api.exceptions import ProductException
+from shop.api.exceptions import ProductException
 
 carts_blueprint = Blueprint('carts', __name__)
 parser = flaskparser.FlaskParser()

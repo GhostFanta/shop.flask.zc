@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
-from api.products.models import ProductReview, Product
-from api.exceptions import ProductException
-from api.products.schemas import product_schema, products_schema, product_review_schema, product_reviews_schema
+from shop.api.products.models import ProductReview, Product
+from shop.api.exceptions import ProductException
+from shop.api.products.schemas import product_schema, products_schema, product_review_schema, product_reviews_schema
 
 from http import HTTPStatus
 

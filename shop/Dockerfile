@@ -1,6 +1,8 @@
 FROM python:3.7-alpine
 
-COPY ../shop /shop
+RUN mkdir /shop
+
+COPY . /shop
 WORKDIR /shop
 
 RUN apk update \
@@ -9,7 +11,8 @@ RUN apk update \
 
 RUN pip install -r requirements.txt
 
-ENV FLASK_APP ./app.py
+ENV FLASK_APP /shop/app.py
+ENV PYTHONPATH /
 
 USER root
 EXPOSE 5000

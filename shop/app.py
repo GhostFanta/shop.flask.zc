@@ -1,5 +1,5 @@
-from api import create_app
-from api.settings import ProdConfig
+from shop.api import create_app
+from shop.api.settings import ProdConfig
 
 app = create_app(ProdConfig)
 

@@ -1,18 +1,17 @@
 from flask import Flask
 from flask_swagger_ui import get_swaggerui_blueprint
-from api.plugins import cors, migrate, marshmallow
-from api.settings import ProdConfig, DevConfig
-from api.cart.routes import carts_blueprint
-from api.shipment.routes import shipment_blueprint
-from api.products.routes import products_blueprint
-from api.user.routes import user_blueprint
-from api.commands import seed, routes
+from shop.api.plugins import cors, migrate, marshmallow
+from shop.api.settings import ProdConfig, DevConfig
+from shop.api.cart.routes import carts_blueprint
+from shop.api.shipment.routes import shipment_blueprint
+from shop.api.products.routes import products_blueprint
+from shop.api.user.routes import user_blueprint
+from shop.api.commands import seed, routes
 
 
 def register_plugins(app):
-    from api.cart.models import Item, Cart, Order
-    from api.plugins import db
-    from api.plugins import cli
+    from shop.api.plugins import db
+    from shop.api.plugins import cli
     cli.init_app(app)
     db.init_app(app)
     cors.init_app(app)

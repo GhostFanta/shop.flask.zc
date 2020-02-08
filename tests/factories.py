@@ -1,5 +1,5 @@
 from factory.alchemy import SQLAlchemyModelFactory
-from api.plugins import db
+from shop.api.plugins import db
 
 
 class BaseFactory(SQLAlchemyModelFactory):

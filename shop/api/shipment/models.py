@@ -1,6 +1,6 @@
-from api.plugins import BaseModel, db, relationship
-from api.enums import ShipmentStatus
-from api.cart.models import Order
+from shop.api.plugins import BaseModel, db, relationship
+from shop.api.enums import ShipmentStatus
+from shop.api.cart.models import Order
 
 
 class Shipment(db.Model, BaseModel):

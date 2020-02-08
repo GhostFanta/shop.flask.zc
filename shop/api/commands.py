@@ -2,11 +2,11 @@ from flask_cli import with_appcontext
 from flask import current_app
 from datetime import datetime
 
-from api.user.models import User, Address
-from api.shipment.models import Shipment
-from api.products.models import Product, ProductReview, Category
+from shop.api.user.models import User, Address
+from shop.api.shipment.models import Shipment
+from shop.api.products.models import Product, ProductReview, Category
 
-from api.enums import AccountStatus
+from shop.api.enums import AccountStatus
 
 import click
 import operator
