@@ -38,7 +38,7 @@ services:
       - ./nginx/proxy.conf:/etc/nginx/proxy.conf:ro
       - ./nginx/mime.types:/etc/nginx/mime.types:ro
     ports:
-      - 80:80
+      - 81:80
       - 444:443
     depends_on:
       - api
