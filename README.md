@@ -1,11 +1,11 @@
 # The Shop API
 
-> Web API designed for online shopping.
+> Web API designed for online shopping. You may use the project as a boilerplate for your needs as well.
 
 ## Project Summary:
 [Click me to see the summary](SUMMARY.md)
 
-## Tool Chain:
+# Tool Chain:
 + Base Framework: Flask
 + ORM: SqlAlchemy
 + Serializer: Marshmallow
@@ -20,9 +20,35 @@ Run the whole project
 make run
 ```
 
+Init DB
+```
+make init
+```
+
+Doing migration
+```
+make migrate
+```
+
+Upgrade to DB
+```
+make upgrade
+```
+
 Run tests
 ```
 make test
 ```
 
-## Features:
+List all routes
+```
+make routes
+```
+
+Run the project under docker mode
+```
+docker-compose up --build
+```
+
+## References:
+

@@ -1,8 +1,8 @@
-import json
-from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
-from api import db
+from shop.api.plugins import db
 
 
 class BaseFactory(SQLAlchemyModelFactory):
-    pass
+    class Meta:
+        abstract = True
+        sqlalchemy_session = db.session
