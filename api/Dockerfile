@@ -1,14 +1,20 @@
 FROM python:3.7-alpine
 
-COPY . /api
-WORKDIR /api
+COPY ../shop /shop
+WORKDIR /shop
+
+RUN apk update \
+  # bcrypt dependencies
+  && apk add --virtual build-deps libffi-dev g++ python3-dev py-gunicorn
 
 RUN pip install -r requirements.txt
-RUN pip install gunicorn
 
-ENV FLASK_APP app.py
+ENV FLASK_APP ./app.py
 
 USER root
 EXPOSE 5000
 
-CMD ["gunicorn", "--workers=2", "--bind=0.0.0.0:5000", "app:app"]
+RUN ["chmod", "777", "start.sh"]
+
+# Use api:create_app if you structure the app in factory pattern
+ENTRYPOINT ["./start.sh"]

@@ -11,9 +11,6 @@ from api.commands import seed, routes
 
 def register_plugins(app):
     from api.cart.models import Item, Cart, Order
-    from api.shipment.models import Shipment, ShipmentTrack
-    from api.products.models import Product, ProductReview, Category, Tag
-    from api.user.models import User, Address
     from api.plugins import db
     from api.plugins import cli
     cli.init_app(app)
