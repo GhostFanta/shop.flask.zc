@@ -166,7 +166,7 @@
             "in": "body",
             "name": "body",
             "description": "New user info",
-            "required":true,
+            "required": true,
             "schema": {
               "$ref": "#/definitions/User"
             }
@@ -272,14 +272,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "Products Successfully Retrieved",
             "schema": {
               "type": "object",
-              "additionalProperties": {
-                "type": "integer",
-                "format": "int32"
-              }
+              "$ref": "#/definitions/User"
             }
+          },
+          "404": {
+            "description": "Not products in db."
           }
         }
       },
@@ -372,7 +372,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "body"
+            "name": "body",
+            "description": "Product request body.",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
           }
         ],
         "responses": {
