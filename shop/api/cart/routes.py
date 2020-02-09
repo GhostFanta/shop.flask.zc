@@ -23,5 +23,5 @@ def pong():
 def get_cart(user_id):
     cart = Cart.query.filter_by(user_id=user_id)
     if not cart:
-        raise ProductException.product_not_exist()
+        return ProductException.product_not_exist(), HTTPStatus.NOT_FOUND
     return cart_schema.dump(cart), HTTPStatus.OK
