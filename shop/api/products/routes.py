@@ -24,7 +24,7 @@ def get_products():
 
 @products_blueprint.route('/products/<product_id>', methods=['GET'])
 def get_product_by_id(product_id):
-    product = Product.query.filter(id=product_id).first()
+    product = Product.get(product_id)
     if not product:
         raise ProductException.product_not_exist()
     return product_schema.dump(product), HTTPStatus.OK
@@ -34,6 +34,15 @@ def get_product_by_id(product_id):
 def create_product():
     data = request.json
     product = Product.create(**data)
+    return product_schema.dump(product), HTTPStatus.OK
+
+
+@products_blueprint.route('/products/<product_id>', methods=['PATCH'])
+def update_product(product_id):
+    data = request.json
+    if hasattr(data, 'reviews'):
+        del data['reviews']
+    product = Product.get(product_id).update(**data)
     return product_schema.dump(product), HTTPStatus.OK
 
 

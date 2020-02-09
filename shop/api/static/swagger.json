@@ -16,7 +16,7 @@
     "description": "Check out the cart project demo.",
     "url": "https://shop-zc.netlify.com/"
   },
-  "host": "shop.zc",
+  "host": "159.203.17.226:81",
   "basePath": "/v1",
   "tags": [
     {
@@ -37,7 +37,6 @@
     }
   ],
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -495,6 +494,7 @@
     "/shipments": {
       "get": {
         "deprecated": true,
+        "summary": "Get the list of all shipments.",
         "tags": [
           "Shipment"
         ],
@@ -506,6 +506,7 @@
       },
       "post": {
         "deprecated": true,
+        "summary": "Create a new note of shipment info.",
         "tags": [
           "Shipment"
         ],
@@ -519,6 +520,7 @@
     "/shipment/{shipment_id}": {
       "put": {
         "deprecated": true,
+        "summary": "Update the status of a shipment log.",
         "tags": [
           "Shipment"
         ],
@@ -530,6 +532,7 @@
       },
       "delete": {
         "deprecated": true,
+        "summary": "Remove shipment log by id.",
         "tags": [
           "Shipment"
         ],

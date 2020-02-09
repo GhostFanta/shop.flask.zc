@@ -1,15 +1,15 @@
 run:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask run
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask run
 test:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run pytest
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run pytest
 init:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask db init
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask db init
 migrate:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask db migrate
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask db migrate
 upgrade:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask db upgrade
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask db upgrade
 seed:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask seed
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask seed
 routes:
 	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask routes
 

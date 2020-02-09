@@ -13,14 +13,18 @@ services:
   mysql:
     image: mysql
     container_name: shop_mysql
+    restart: always
     ports:
       - 32000:3306
+    expose:
+      - 32000
     environment:
       MYSQL_DATABASE: shop
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - ./data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d/:ro
   mysql_test:
     image: mysql
     container_name: shop_mysql_test

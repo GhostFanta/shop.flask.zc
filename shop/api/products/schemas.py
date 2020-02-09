@@ -22,7 +22,7 @@ class ProductSchema(Schema):
     capacity = fields.Int()
     category = fields.Nested(CategorySchema)
     produced_at = fields.DateTime()
-    reviews = fields.List(fields.Nested(ProductReviewSchema))
+    reviews = fields.List(fields.Nested(ProductReviewSchema), required=False)
 
 
 tag_schema = TagSchema()

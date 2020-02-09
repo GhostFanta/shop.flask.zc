@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from shop.api.plugins import BaseModel, db, relationship
+from shop.api.plugins import BaseModel, db, relationship, CRUDMixin
 from shop.api.enums import AccountStatus
 
 
-class User(db.Model, BaseModel):
+class User(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'user'
     name = db.Column('name', db.String(200))
     password = db.Column('password', db.String(200))
@@ -29,7 +29,7 @@ class User(db.Model, BaseModel):
         return
 
 
-class Address(db.Model, BaseModel):
+class Address(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'address'
     street = db.Column('street', db.String(200))
     city = db.Column('city', db.String(128))
