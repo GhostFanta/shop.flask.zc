@@ -20,7 +20,7 @@ use_args = parser.use_args
 def get_user_by_id(user_id):
     user = User.get_or_404(user_id)
     if not user:
-        raise UserExceptions.user_not_exist()
+        return UserExceptions.user_not_exist(), HTTPStatus.NOT_FOUND
     return user_schema.dump(user), HTTPStatus.OK
 
 
@@ -28,7 +28,7 @@ def get_user_by_id(user_id):
 def get_users():
     users = User.query.all()
     if not users:
-        raise UserExceptions.user_not_exist()
+        return UserExceptions.user_not_exist(), HTTPStatus.NOT_FOUND
     return jsonify(users_schema.dump(users)), HTTPStatus.OK
 
 
@@ -37,7 +37,7 @@ def update_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     data = request.json
     if not user:
-        raise UserExceptions.user_not_exist()
+        return UserExceptions.user_not_exist(), HTTPStatus.NOT_FOUND
     user.update(updated_at=datetime.utcnow(), **data)
     return jsonify(user_schema.dump(user)), HTTPStatus.OK
 

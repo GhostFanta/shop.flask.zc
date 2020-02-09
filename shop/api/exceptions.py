@@ -1,3 +1,6 @@
+from flask import jsonify
+
+
 def template(data, code):
     return {'message': {'errors': {'body': data}}, 'status_code': code}
 
@@ -8,31 +11,34 @@ PRODUCT_NOT_FOUND = template(['Product not exist'], code=404)
 NO_PRODUCT_REVIEW = template(['Product review is empty'], code=404)
 
 
-class ProductException(Exception):
+class ProductException(object):
     status_code = 500
 
     def __init__(self, message, status_code=None, payload=None):
-        Exception.__init__(self)
+        object.__init__(self)
         self.message = message
 
         if status_code is not None:
             self.status_code = status_code
         self.payload = payload
 
+    def __repr__(self):
+        return {'message': self.message, 'status_code': self.status_code}
+
     @classmethod
     def product_not_exist(cls):
-        return cls(**PRODUCT_NOT_FOUND)
+        return jsonify(cls(**PRODUCT_NOT_FOUND).__str__())
 
     @classmethod
     def no_products_in_db(cls):
-        return cls(**PRODUCT_DB_EMPTY)
+        return cls(**PRODUCT_DB_EMPTY).__str__()
 
     @classmethod
     def no_product_review(cls):
-        return cls(**NO_PRODUCT_REVIEW)
+        return cls(**NO_PRODUCT_REVIEW).__str__()
 
 
-class UserExceptions(Exception):
+class UserExceptions(object):
     status_code = 500
 
     def __init__(self, message, status_code=None, payload=None):
@@ -45,4 +51,4 @@ class UserExceptions(Exception):
 
     @classmethod
     def user_not_exist(cls):
-        return cls(**USER_NOT_FOUND)
+        return cls(**USER_NOT_FOUND).__str__()

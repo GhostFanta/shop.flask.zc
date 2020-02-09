@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+import json
 from webargs import fields, ValidationError, flaskparser
 from webargs.flaskparser import use_args
 from shop.api.products.models import ProductReview, Product
@@ -18,7 +19,7 @@ use_args = parser.use_args
 def get_products():
     products = Product.query.all()
     if not products:
-        raise ProductException.no_products_in_db()
+        return ProductException.no_products_in_db(),HTTPStatus.NOT_FOUND
     return jsonify(products_schema.dump(products)), HTTPStatus.OK
 
 
@@ -26,7 +27,7 @@ def get_products():
 def get_product_by_id(product_id):
     product = Product.get(product_id)
     if not product:
-        raise ProductException.product_not_exist()
+        return ProductException.product_not_exist(), HTTPStatus.NOT_FOUND
     return product_schema.dump(product), HTTPStatus.OK
 
 
@@ -50,7 +51,7 @@ def update_product(product_id):
 def delete_product(product_id):
     product = Product.query.filter_by(id=product_id).first()
     if not product:
-        raise ProductException.product_not_exist()
+        return ProductException.product_not_exist(), HTTPStatus.NOT_FOUND
     product.delete()
     return product_schema.dump(product), HTTPStatus.NO_CONTENT
 
@@ -59,7 +60,7 @@ def delete_product(product_id):
 def get_product_view_by_product_id(product_id):
     reviews = ProductReview.query.filter(product_id=product_id)
     if not reviews:
-        raise ProductException.no_product_review()
+        return ProductException.no_product_review(), HTTPStatus.NOT_FOUND
     return product_reviews_schema.dump(reviews), HTTPStatus.OK
 
 
@@ -74,5 +75,5 @@ def create_product_view(product_id):
 def get_product_view_by_product_id_and_review_id(product_id, review_id):
     reviews = ProductReview.query.filter(product_id=product_id, id=review_id)
     if not reviews:
-        raise ProductException.no_product_review()
+        return ProductException.no_product_review(),HTTPStatus.NOT_FOUND
     return product_reviews_schema.dump(reviews), HTTPStatus.OK
