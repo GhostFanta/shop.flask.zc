@@ -37,7 +37,7 @@ def create_product():
     return product_schema.dump(product), HTTPStatus.OK
 
 
-@products_blueprint.route('/products/<product_id>', methods=['PATCH'])
+@products_blueprint.route('/products/<product_id>', methods=['PATCH', 'PUT'])
 def update_product(product_id):
     data = request.json
     if hasattr(data, 'reviews'):
