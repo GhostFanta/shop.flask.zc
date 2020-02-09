@@ -348,6 +348,13 @@
         "summary": "Update all info of a product.",
         "parameters": [
           {
+            "in": "path",
+            "name": "user_id",
+            "description": "Product Id",
+            "required": true,
+            "type": "number"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
@@ -370,6 +377,13 @@
         ],
         "summary": "Update partial info of a product.",
         "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "Product Id",
+            "required": true,
+            "type": "number"
+          },
           {
             "in": "body",
             "name": "body",
