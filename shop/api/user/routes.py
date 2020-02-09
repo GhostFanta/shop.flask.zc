@@ -46,7 +46,7 @@ def update_user(user_id):
 def create_user():
     data = request.json
     user = User.create(**data)
-    if data['address']:
+    if hasattr(data,'address'):
         address = Address.create(**data['address'][0], user_id=user.id)
         user.address = [address]
     return jsonify(user_schema.dump(user)), HTTPStatus.OK
