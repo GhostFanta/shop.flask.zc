@@ -25,6 +25,7 @@ flask-cli = "*"
 simplejson = "*"
 flasgger = "*"
 flask-swagger-ui = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.6"

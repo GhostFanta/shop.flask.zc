@@ -1,11 +1,11 @@
-from shop.api.plugins import BaseModel, db, relationship
+from shop.api.plugins import BaseModel, db, relationship, CRUDMixin
 from shop.api.enums import OrderStatus
 
 from shop.api.user.models import User
 from shop.api.products.models import Product
 
 
-class Cart(db.Model):
+class Cart(db.Model, CRUDMixin):
     """
     Contains a list of items, which indicates the items that the customer want to
     proceed.
@@ -23,7 +23,7 @@ class Cart(db.Model):
                           )
 
 
-class Item(db.Model, BaseModel):
+class Item(db.Model, BaseModel, CRUDMixin):
     """
     One row in cart, which contains the info of a product and the number of
     products that the customer want to purchase.
@@ -50,7 +50,7 @@ class Item(db.Model, BaseModel):
         return self.product.price * self.amount
 
 
-class Order(db.Model, BaseModel):
+class Order(db.Model, BaseModel, CRUDMixin):
     """
     It represents the proceed cart.
     """

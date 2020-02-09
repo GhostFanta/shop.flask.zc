@@ -7,7 +7,7 @@ WORKDIR /shop
 
 RUN apk update \
   # bcrypt dependencies
-  && apk add --virtual build-deps libffi-dev g++ python3-dev py-gunicorn
+  && apk add --virtual build-deps libressl-dev libffi-dev g++ python3-dev py-gunicorn
 
 RUN pip install -r requirements.txt
 

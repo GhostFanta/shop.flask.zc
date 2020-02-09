@@ -46,7 +46,6 @@ def create_app(config_object=ProdConfig):
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = config_object.SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config_object.SQLALCHEMY_TRACK_MODIFICATIONS
-    app.config['SWAGGER'] = config_object.SWAGGER
     register_plugins(app)
     register_blueprints(app)
     register_commands(app)

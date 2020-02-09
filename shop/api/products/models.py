@@ -1,7 +1,7 @@
-from shop.api.plugins import BaseModel, db, relationship
+from shop.api.plugins import BaseModel, db, relationship, CRUDMixin
 
 
-class Category(db.Model, BaseModel):
+class Category(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'category'
     category_name = db.Column('category_name', db.String(20))
 
@@ -14,7 +14,7 @@ class Category(db.Model, BaseModel):
         return '<Category %r>' % self.__category_name
 
 
-class Product(db.Model, BaseModel):
+class Product(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'product'
     product_name = db.Column('product_name', db.String(200))
     description = db.Column('description', db.String(200))
@@ -37,7 +37,7 @@ class Product(db.Model, BaseModel):
                           )
 
 
-class ProductReview(db.Model, BaseModel):
+class ProductReview(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'productreview'
     rating = db.Column('rating', db.Integer)
     review = db.Column('review', db.Text)

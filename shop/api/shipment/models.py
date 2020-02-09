@@ -1,9 +1,9 @@
-from shop.api.plugins import BaseModel, db, relationship
+from shop.api.plugins import BaseModel, db, relationship, CRUDMixin
 from shop.api.enums import ShipmentStatus
 from shop.api.cart.models import Order
 
 
-class Shipment(db.Model, BaseModel):
+class Shipment(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'shipment'
     order_id = db.Column('order_id', db.ForeignKey('order.id'))
     shipment_status = db.Column('shipment_status', db.Enum(ShipmentStatus))
@@ -15,7 +15,7 @@ class Shipment(db.Model, BaseModel):
                           )
 
 
-class ShipmentTrack(db.Model, BaseModel):
+class ShipmentTrack(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'shipmenttrack'
     shipment_date = db.Column('shipment_date', db.Enum(ShipmentStatus))
     esitmated_arrival = db.Column('estimated_arrival', db.DateTime)
