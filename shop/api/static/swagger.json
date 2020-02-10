@@ -470,6 +470,15 @@
         "tags": [
           "Product"
         ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product_id",
+            "description": "Product Id",
+            "type": "number",
+            "required": true
+          }
+        ],
         "deprecated": false,
         "summary": "Get reviews of a product.",
         "description": "",
