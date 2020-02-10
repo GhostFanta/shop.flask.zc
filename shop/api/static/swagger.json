@@ -737,9 +737,6 @@
         },
         "review": {
           "type": "string"
-        },
-        "product_id": {
-          "type": "number"
         }
       }
     },
