@@ -67,10 +67,11 @@ def get_product_view_by_product_id(product_id):
 @products_blueprint.route('/products/<product_id>/product_reviews', methods=['POST'])
 def create_product_view(product_id):
     data = request.json
+    data.update({"product_id": product_id})
     product = Product.query.get(product_id)
     if not product:
         return ProductException.product_not_exist(), HTTPStatus.NOT_FOUND
-    product_review = ProductReview.create(**data, product_id=product_id)
+    product_review = ProductReview.create(**data)
     return jsonify(product_review_schema.dump(product_review)), HTTPStatus.OK
 
 
