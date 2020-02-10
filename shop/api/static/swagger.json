@@ -435,8 +435,11 @@
           {
             "in": "path",
             "name": "product_id",
-            "description": "Product Id"
-          },{
+            "description": "Product Id",
+            "type": "number",
+            "required": true
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
