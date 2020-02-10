@@ -11,6 +11,7 @@ class CategorySchema(Schema):
 
 class ProductReviewSchema(Schema):
     id = fields.Integer()
+    product_id = fields.Integer()
     rating = fields.Integer()
     review = fields.Str()
 
