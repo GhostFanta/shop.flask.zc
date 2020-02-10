@@ -426,7 +426,7 @@
         }
       }
     },
-    "/products/{product_id}/product_review": {
+    "/products/{product_id}/product_reviews": {
       "post": {
         "tags": [
           "Product"
