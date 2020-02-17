@@ -12,7 +12,7 @@ class OrderStatus(Enum):
 class AccountStatus(Enum):
     active = 'active'
     inactive = 'inactive'
-    blocked = 'blocked'
+    suspended = 'suspended'
 
 
 class ShipmentStatus(Enum):

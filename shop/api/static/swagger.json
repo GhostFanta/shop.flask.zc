@@ -210,7 +210,7 @@
           "204": {
             "description": "successfully deleted",
             "schema": {
-              "type": "null"
+              "type": "object"
             }
           },
           "404": {
@@ -236,7 +236,7 @@
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "user_id",
             "in": "path",
             "description": "ID of user that requires an avatart update.",
             "required": true,
@@ -274,7 +274,6 @@
           "200": {
             "description": "Products Successfully Retrieved",
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/User"
             }
           },
@@ -504,9 +503,9 @@
         "tags": [
           "Cart"
         ],
-        "deprecated": true,
+        "deprecated": false,
         "summary": "Find purchase order by ID",
-        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
+        "description": "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
         "operationId": "getOrderById",
         "produces": [
           "application/json"
@@ -542,7 +541,7 @@
         "tags": [
           "Cart"
         ],
-        "deprecated": true,
+        "deprecated": false,
         "summary": "Clear all items from cart by cart id",
         "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
         "operationId": "clearCart",
@@ -565,6 +564,162 @@
           },
           "404": {
             "description": "Order not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "deprecated": true,
+        "summary": "Clear all items from cart by cart id",
+        "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "clearCart",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user that needs to clear cart.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/cart/{user_id}/items": {
+      "post": {
+        "deprecated": false,
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id of the user that owns the cart",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Item that is going to be added to the cart",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateItem"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Cart not created for this user."
+          },
+          "200": {
+            "description": "Successfully fetched"
+          }
+        }
+      }
+    },
+    "/items/{item_id}": {
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "description": "Id of the item",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "No such item"
+          },
+          "200": {
+            "description": "Successfully deleted."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "description": "Id of the Item",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Item that is going to be added to the cart",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated.",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Item"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "description": "Id of the Item",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Item that is going to be added to the cart",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated.",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Item"
+            }
           }
         }
       }
@@ -820,6 +975,14 @@
         },
         "shipment_id": {
           "type": "string"
+        }
+      }
+    },
+    "UpdateItem": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
         }
       }
     }

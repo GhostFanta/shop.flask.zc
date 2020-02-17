@@ -30,13 +30,11 @@ class Item(db.Model, BaseModel, CRUDMixin):
     """
     __tablename__ = 'item'
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
     amount = db.Column('amount', db.Integer, default=0)
 
     cart = relationship("Cart", backref="item_cart")
     product = relationship("Product", backref="item_product")
-    order = relationship("Order", backref="item_order")
 
     def __init__(self, **kwargs):
         db.Model.__init__(self,
