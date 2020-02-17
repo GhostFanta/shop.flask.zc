@@ -504,7 +504,7 @@
           "Cart"
         ],
         "deprecated": false,
-        "summary": "Find purchase order by ID",
+        "summary": "Check the cart of given user.",
         "description": "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
         "operationId": "getOrderById",
         "produces": [
@@ -572,7 +572,7 @@
           "Cart"
         ],
         "deprecated": true,
-        "summary": "Clear all items from cart by cart id",
+        "summary": "Clear the cart and move all items as order for checkout.",
         "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
         "operationId": "clearCart",
         "produces": [
@@ -638,6 +638,7 @@
         "tags": [
           "Cart"
         ],
+        "description": "Remove an item from cart",
         "parameters": [
           {
             "name": "item_id",
@@ -661,6 +662,7 @@
         "tags": [
           "Cart"
         ],
+        "description": "Update amount of an item in cart.",
         "parameters": [
           {
             "name": "item_id",
@@ -694,6 +696,7 @@
         "tags": [
           "Cart"
         ],
+        "description": "Update amount of an item in cart.",
         "parameters": [
           {
             "name": "item_id",
