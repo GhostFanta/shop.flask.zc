@@ -61,7 +61,23 @@ class CRUDMixin(Model):
         return self
 
     def delete(self, commit=True):
+        """
+        Physically delete one row
+        :param commit:
+        :return:
+        """
         db.session.delete(self)
+        return commit and db.session.commit()
+
+    @classmethod
+    def delete_many(cls, conditions, commit=True):
+        """
+        Do bulk physical delete based on combination of rules.
+        :param conditions:
+        :param commit:
+        :return:
+        """
+        cls.query.filter(conditions).delete()
         return commit and db.session.commit()
 
 
@@ -82,6 +98,10 @@ class SoftDeleteMixin(CRUDMixin):
     def delete(self, commit=True):
         self.deleted_at = datetime.utcnow()
         return commit and db.session.commit()
+
+    @classmethod
+    def delete_many(cls, conditions, commit=True):
+        pass
 
 
 class BaseModel(object):

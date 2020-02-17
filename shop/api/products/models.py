@@ -20,7 +20,7 @@ class Product(db.Model, CRUDMixin, BaseModel):
     description = db.Column('description', db.String(200))
     price = db.Column('price', db.DECIMAL)
     produced_at = db.Column('produced_at', db.DateTime)
-    capacity = db.Column('capacity', db.String(200))
+    capacity = db.Column('capacity', db.Integer)
     category_id = db.Column('category', db.ForeignKey('category.id'))
 
     item = relationship('Item', backref="item_product")
@@ -35,6 +35,18 @@ class Product(db.Model, CRUDMixin, BaseModel):
                           capacity=kwargs.get('capacity'),
                           category=kwargs.get('category'),
                           )
+
+    @classmethod
+    def add_amount(cls, product_id, amount):
+        product = cls.get(product_id)
+        product.capacity = product.capacity + amount
+        product.save()
+
+    @classmethod
+    def reduce_amount(cls, product_id, amount):
+        product = cls.get(product_id)
+        product.capacity = product.capacity - amount
+        product.save()
 
 
 class ProductReview(db.Model, CRUDMixin, BaseModel):

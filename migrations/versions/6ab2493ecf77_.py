@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 46af71732038
+Revision ID: 6ab2493ecf77
 Revises: 
-Create Date: 2020-02-09 00:06:09.941403
+Create Date: 2020-02-16 22:58:40.834755
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '46af71732038'
+revision = '6ab2493ecf77'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -47,11 +47,12 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=True),
+    sa.Column('salt', sa.String(length=200), nullable=True),
     sa.Column('password', sa.String(length=200), nullable=True),
     sa.Column('email', sa.String(length=200), nullable=True),
     sa.Column('avatar', sa.String(length=256), nullable=True),
     sa.Column('last_login', sa.DateTime(), nullable=True),
-    sa.Column('status', sa.Enum('active', 'inactive', 'blocked', name='accountstatus'), nullable=True),
+    sa.Column('status', sa.Enum('active', 'inactive', 'suspended', name='accountstatus'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
@@ -83,7 +84,7 @@ def upgrade():
     sa.Column('description', sa.String(length=200), nullable=True),
     sa.Column('price', sa.DECIMAL(), nullable=True),
     sa.Column('produced_at', sa.DateTime(), nullable=True),
-    sa.Column('capacity', sa.String(length=200), nullable=True),
+    sa.Column('capacity', sa.Integer(), nullable=True),
     sa.Column('category', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category'], ['category.id'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -104,11 +105,9 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=True),
-    sa.Column('order_id', sa.Integer(), nullable=True),
     sa.Column('cart_id', sa.Integer(), nullable=True),
     sa.Column('amount', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['cart_id'], ['cart.id'], ),
-    sa.ForeignKeyConstraint(['order_id'], ['order.id'], ),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')

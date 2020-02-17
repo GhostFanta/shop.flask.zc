@@ -7,6 +7,7 @@ from shop.api.enums import AccountStatus
 class User(db.Model, CRUDMixin, BaseModel):
     __tablename__ = 'user'
     name = db.Column('name', db.String(200))
+    salt = db.Column('salt', db.String(200))
     password = db.Column('password', db.String(200))
     email = db.Column('email', db.String(200))
     avatar = db.Column('avatar', db.String(256))
@@ -19,6 +20,7 @@ class User(db.Model, CRUDMixin, BaseModel):
     def __init__(self, **kwargs):
         db.Model.__init__(self,
                           name=kwargs.get('name'),
+                          salt=kwargs.get('salt'),
                           password=kwargs.get('password'),
                           email=kwargs.get('email'),
                           status=kwargs.get('status') or AccountStatus.inactive,

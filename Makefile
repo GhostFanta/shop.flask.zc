@@ -11,6 +11,6 @@ upgrade:
 seed:
 	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask seed
 routes:
-	export FLASK_DEBUG=True FLASK_APP=api/app.py && pipenv run flask routes
+	export FLASK_DEBUG=True FLASK_APP=shop/app.py && pipenv run flask routes
 
 .PHONY: run test init migrate upgrade seed routes
