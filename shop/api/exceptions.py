@@ -9,6 +9,7 @@ USER_NOT_FOUND = template(['User not exist'], code=404)
 PRODUCT_DB_EMPTY = template(['No products exist in db'], code=404)
 PRODUCT_NOT_FOUND = template(['Product not exist'], code=404)
 NO_PRODUCT_REVIEW = template(['Product review is empty'], code=404)
+NO_SHIPMENT_RECORD = template(['Shipment record not exist'], code=404)
 
 
 class ProductException(object):
@@ -59,3 +60,14 @@ class CartExceptions(object):
 
     def __init__(self, message, status_code=None, payload=None):
         object.__init__(self)
+
+
+class ShipmentExceptions(object):
+    status_code = 500
+
+    def __init__(self, message, status_code=None, payload=None):
+        object.__init__(self)
+
+    @classmethod
+    def shipment_record_not_exist(cls):
+        return cls(**NO_SHIPMENT_RECORD).__str__()

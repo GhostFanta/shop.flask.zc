@@ -5,6 +5,10 @@
 ## Project Summary:
 [Click me to see the summary](SUMMARY.md)
 
+## Documentation:
+[API Doc](SUMMARY.md)
+
+
 # Tool Chain:
 + Base Framework: Flask
 + ORM: SqlAlchemy
@@ -50,5 +54,9 @@ Run the project under docker mode
 docker-compose up --build
 ```
 
-## References:
+Reference:
+You may find everything amazing available online.
+
++ M$ Rest API guideline: https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#readme
++ SQL Alchemy doc: https://docs.sqlalchemy.org/en/13/orm/tutorial.html
 
