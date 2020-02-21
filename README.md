@@ -50,5 +50,7 @@ Run the project under docker mode
 docker-compose up --build
 ```
 
-## References:
+Reference:
++ MS Rest API guideline: https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#readme
++ SQL Alchemy doc: https://docs.sqlalchemy.org/en/13/orm/tutorial.html
 
