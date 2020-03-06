@@ -31,6 +31,7 @@ class Item(db.Model, BaseModel, CRUDMixin):
     __tablename__ = 'item'
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=True)
     amount = db.Column('amount', db.Integer, default=0)
 
     cart = relationship("Cart", backref="item_cart")
@@ -55,6 +56,7 @@ class Order(db.Model, BaseModel, CRUDMixin):
 
     __tablename__ = 'order'
     status = db.Column('status', db.Enum(OrderStatus), default=OrderStatus.unshipped)
+    processed_at = db.Column('processed_at', db.DateTime)
 
     def __init__(self, **kwargs):
         db.Model.__init__(self,

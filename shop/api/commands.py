@@ -3,8 +3,8 @@ from flask import current_app
 from datetime import datetime
 
 from shop.api.user.models import User, Address
-from shop.api.shipment.models import Shipment
 from shop.api.products.models import Product, ProductReview, Category
+from shop.api.cart.models import Cart, Item
 
 from shop.api.enums import AccountStatus
 
@@ -26,12 +26,19 @@ def seed():
     Address.create(street='stree2', city='city2', state='state2', zip_code='0000002', user_id=2)
     Category.create(category_name='cat1')
     Category.create(category_name='cat2')
+    Category.create(category_name='cat3')
     Product.create(product_name='product1', description='product_des1', price='11', produced_at=datetime.utcnow(),
                    capacity=11, category_id=1)
     Product.create(product_name='product2', description='product_des2', price='22', produced_at=datetime.utcnow(),
                    capacity=22, category_id=2)
+    Product.create(product_name='product3', description='product_des3', price='22', produced_at=datetime.utcnow(),
+                   capacity=22, category_id=3)
     ProductReview.create(rating=3, review="Good product1!", product_id=1)
     ProductReview.create(rating=3, review="Good product2!", product_id=2)
+    Cart.create(user_id=1)
+    Cart.create(user_id=2)
+    Item.create(product_id=1, cart_id=1, amount=3)
+    Item.create(product_id=2, cart_id=1, amount=3)
 
 
 @click.command()
