@@ -21,6 +21,11 @@ class CartSchema(Schema):
     user_id = fields.Integer()
     items = fields.List(fields.Nested(ItemSchema))
 
+    @pre_load
+    def filter_not_processed_item(self, in_data, **kwargs):
+        in_data['items'] = [item for item in in_data['items'] if item['order_id'] is None]
+        return in_data
+
 
 class OrderSchema(Schema):
     pass
